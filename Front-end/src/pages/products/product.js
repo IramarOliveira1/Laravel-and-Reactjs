@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Table,Container} from "reactstrap";
 
-import axios from '../../../services/api';
-import Nav from '../navbar/nav';
+import axios from '../../services/api';
+import Nav from '../../components/navbar/nav';
 
 export default function Product() {
   

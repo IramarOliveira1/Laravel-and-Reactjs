@@ -3,10 +3,10 @@ import React from 'react';
 import {BrowserRouter as Router,Switch, Route } from "react-router-dom";
 import PrivateRoute from './services/auth';
 
-import product from  './pages/components/products/product';
+import product from  './pages/products/product';
 import Login from './pages/Login/login';
-import Category from './pages/components/categories/category'
-import Home from './pages/components/home/home';
+import Category from './pages/categories/category'
+import Home from './pages/home/home';
 
 
 

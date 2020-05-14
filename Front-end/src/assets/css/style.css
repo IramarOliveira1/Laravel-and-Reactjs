@@ -3,7 +3,7 @@
 }
 
 .box-col-principal{
-  background-color: #F1F3F9;
+  /* background-color: #F1F3F9; */
   width: 50%;
   height: 100vh;
   padding: auto;
@@ -17,17 +17,13 @@
     text-align: center;
 }
 
-.box-col-img{
-  left: 2%;
-}
 
 
-
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .box-col-img{
     display: none;
   }
-}
+} */
 
 .nav-link {
     position: relative;

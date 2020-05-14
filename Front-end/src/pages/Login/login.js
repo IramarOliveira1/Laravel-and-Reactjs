@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Row, Container, FormGroup, Form, Input, Col, Button } from "reactstrap";
+import React, { useState,useEffect } from 'react';
+import { Row, Container,FormGroup, Form, Input, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
 
-import logo from '../../assets/imagens/logo-inicial.png';
+// import logo from '../../assets/imagens/logo-inicial.png';
 import axios from '../../services/api';
 import '../../assets/css/style.css';
 
@@ -14,6 +14,12 @@ function Login() {
   let history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState(123456789);
+
+//   useEffect(() => {
+//     localStorage.getItem('jwt-token');
+//     history.push('/home');
+//  }, []);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,7 +58,7 @@ function Login() {
     <>
       <div className="box-principal">
         <Col className="box-col-img col-md-6 mt-5">
-          <img width="500" height="500" src={logo} />
+          {/* <img width="500" height="500" src={logo} /> */}
         </Col>
         <Col className="col-md-6 box-col-principal">
           <Form className="box-form m-auto agora" onSubmit={handleSubmit}>

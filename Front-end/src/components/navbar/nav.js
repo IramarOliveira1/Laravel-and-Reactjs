@@ -3,9 +3,9 @@ import { Link, useHistory } from "react-router-dom";
 
 import {UncontrolledCollapse,Navbar,NavItem,NavLink, Nav, Container, Row, Col} from "reactstrap";
 
-import axios from '../../../services/api';
-import '../../../assets/css/style.css';
-import logoSotero from '../../../assets/imagens/logo-sotero.png';
+import axios from '../../services/api';
+import '../../assets/css/style.css';
+import logoSotero from '../../assets/images/logo-sotero.png';
 
 export default function NavBar() {
 
