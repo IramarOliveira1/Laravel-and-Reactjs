@@ -26,4 +26,6 @@ Route::group(['middleware' => ['apiJwt']],function () {
     
     Route::post('/store/category', 'Api\\CategoryController@store');
 
+    Route::delete('/delete/category/{id}', 'Api\\CategoryController@destroy');
+
 });
