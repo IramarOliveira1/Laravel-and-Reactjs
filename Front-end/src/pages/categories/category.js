@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Nav from '../../components/navbar/nav';
 
-import { AiFillDelete } from 'react-icons/ai';
 import axios from '../../services/api';
 import { Button, Modal, Container, Table, Form, Input, FormGroup, Label } from "reactstrap";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
 
+import ListCategory from './updateCategory';
 
 export default function Categories() {
 
@@ -113,13 +113,14 @@ export default function Categories() {
 
   }
 
-  const handleMapAll = categories.map((getAll) => {
+  const handleMapAll = categories.map((getCategories) => {
     return (
-      <tr key={getAll.id}>
-        <td>{getAll.id}</td>
-        <td>{getAll.name}</td>
-        <td><Button onClick={() => handleDelete(getAll.id)} color="danger"> <AiFillDelete /> </Button></td>
-      </tr>
+      <ListCategory
+        getCategories={getCategories}
+        key={getCategories.id}
+        handleDelete={handleDelete}
+        handleAllCategories={handleAllCategories}
+      />
     )
   });
 
