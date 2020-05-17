@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $allCategory = Category::all();
 
-        return response()->json($categories, 200);
+        return response()->json($allCategory, 200);
     }
 
 
@@ -36,11 +36,11 @@ class CategoryController extends Controller
             ],401);
         }
 
-        $storeCategories = Category::create([
+        $storeCategory = Category::create([
             'name' => $request->name
         ]);
 
-        return response()->json($storeCategories, 200);
+        return response()->json($storeCategory, 200);
     }
 
     /**
@@ -52,7 +52,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updateCategory = Category::find($id);
+        $updateCategory->update($request->all());
+
+        return response()->json($updateCategory, 200);
     }
 
     /**
