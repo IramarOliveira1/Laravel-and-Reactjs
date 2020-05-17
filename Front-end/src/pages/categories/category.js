@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Nav from '../../components/navbar/nav';
 
+import { AiFillDelete } from 'react-icons/ai';
 import axios from '../../services/api';
-import { Button, Modal, Container, Table, Form, Input, FormGroup,Label } from "reactstrap";
+import { Button, Modal, Container, Table, Form, Input, FormGroup, Label } from "reactstrap";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
@@ -22,58 +23,92 @@ export default function Categories() {
 
   const handleAllCategories = async () => {
 
-    await axios.get('/category', {
-    }).then((response) => {
-
+    await axios.get('/category').then((response) => {
       setCategories(response.data)
     }).catch((error) => {
-
       console.log(error);
-    });
 
+    });
   }
 
   const handleSubmit = async () => {
 
     if (!name) {
       MySwal.fire({
-        icon: 'error',
-        title: 'Ocorreu um erro :(',
-        text: 'Preencha os campos vazios!'
+        icon: 'info',
+        title: 'Preencha os campos vazios!',
       })
-
-      return name;  
+      return name;
     }
 
     await axios.post('/store/category', {
-      name:name,
+      name: name,
     }).then((response) => {
 
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
         timerProgressBar: true,
         onOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
-      
+
       Toast.fire({
         icon: 'success',
         title: 'Cadastrado com sucesso :)'
       })
-
       setModal(false);
-      setCategories([...categories,response.data]);
+      setCategories([...categories, response.data]);
       setName('');
       handleAllCategories();
 
     }).catch((err) => {
       console.log(err);
-     
+    });
+
+  }
+
+  const handleDelete = async (id) => {
+
+    Swal.fire({
+      title: 'Atenção',
+      text: "Este registro será definitivamente excluído. Deseja continuar?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#449D44',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar item!',
+      cancelButtonText: 'Não, quero cancelar!'
+    }).then((result) => {
+      if (result.value) {
+        axios.delete(`/delete/category/${id}`).then((response) => {
+          console.log(response);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Excluido com sucesso :)'
+          })
+          handleAllCategories();
+        }).catch((err) => {
+          console.log(err);
+
+        });
+      }
     });
 
   }
@@ -83,6 +118,7 @@ export default function Categories() {
       <tr key={getAll.id}>
         <td>{getAll.id}</td>
         <td>{getAll.name}</td>
+        <td><Button onClick={() => handleDelete(getAll.id)} color="danger"> <AiFillDelete /> </Button></td>
       </tr>
     )
   });
@@ -119,16 +155,16 @@ export default function Categories() {
           </div>
           <div className="modal-body">
             <Form>
-                <Label>Nome</Label>
-                <FormGroup>
-                  <Input
-                    className="form-control"
-                    id="text"
-                    type="text"
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                  />
-                </FormGroup>
+              <Label>Nome</Label>
+              <FormGroup>
+                <Input
+                  className="form-control"
+                  id="nome"
+                  type="text"
+                  value={name}
+                  onChange={event => setName(event.target.value)}
+                />
+              </FormGroup>
             </Form>
           </div>
           <div className="modal-footer">
@@ -140,7 +176,7 @@ export default function Categories() {
             >
               fechar
             </Button>
-            <Button color="success" type="submit"  onClick={handleSubmit} >
+            <Button color="success" type="submit" onClick={handleSubmit} >
               Salvar
             </Button>
           </div>
@@ -151,6 +187,7 @@ export default function Categories() {
             <tr>
               <th scope="col">id</th>
               <th scope="col">Nome</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
