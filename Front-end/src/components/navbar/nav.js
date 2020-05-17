@@ -60,7 +60,7 @@ export default function NavBar() {
                     <Link to="/">
                       <img
                         alt="..."
-                        src="http://hostserveres.com/uploads/settings/15671091409758.png"
+                        // src="http://hostserveres.com/uploads/settings/15671091409758.png"
                       />
                     </Link>
                   </Col>

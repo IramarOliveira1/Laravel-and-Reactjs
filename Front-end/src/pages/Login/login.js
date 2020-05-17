@@ -1,25 +1,25 @@
-import React, { useState,useEffect } from 'react';
-import { Row, Container,FormGroup, Form, Input, Col, Button } from "reactstrap";
+import React, { useState } from 'react';
+import { Container, FormGroup, Form, Input, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
+import { FaBeer } from 'react-icons/fa';
+import styled from 'styled-components';
 
-// import logo from '../../assets/imagens/logo-inicial.png';
 import axios from '../../services/api';
-import '../../assets/css/style.css';
 
-function Login() {
+export default function Login() {
 
   const MySwal = withReactContent(Swal)
-  let history = useHistory();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState(123456789);
 
-//   useEffect(() => {
-//     localStorage.getItem('jwt-token');
-//     history.push('/home');
-//  }, []);
-
+  // useEffect(() => {
+  //   if (!localStorage.getItem("jwt-token")) {
+  //     history.push("/login");
+  //   }
+  // }, [history]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,9 +34,9 @@ function Login() {
 
     MySwal.showLoading()
 
-    const response = await axios.post('auth/login',{
-      email:email,
-      password:password
+    const response = await axios.post('auth/login', {
+      email: email,
+      password: password
     });
 
     MySwal.close();
@@ -48,6 +48,8 @@ function Login() {
         text: response.data.messege,
       })
     } else {
+      console.log(response.data);
+      
       localStorage.setItem('jwt-token', response.data.access_token);
       history.push('/home');
     }
@@ -56,14 +58,11 @@ function Login() {
 
   return (
     <>
-      <div className="box-principal">
-        <Col className="box-col-img col-md-6 mt-5">
-          {/* <img width="500" height="500" src={logo} /> */}
-        </Col>
-        <Col className="col-md-6 box-col-principal">
-          <Form className="box-form m-auto agora" onSubmit={handleSubmit}>
-            <Col className="col-md-12 mt-9">
-              <h3 className="mb-5">Sotero Systems <i className="ni ni-atom "></i> </h3>
+      <Body>
+        <Container>
+          <Form onSubmit={handleSubmit} className="pt-9">
+            <Col className="col-md-6 m-auto">
+              <h3 className="mb-5">Sotero Systems <FaBeer /> </h3>
               <FormGroup>
                 <Input
                   className="form-control-alternative"
@@ -75,7 +74,7 @@ function Login() {
                 />
               </FormGroup>
             </Col>
-            <Col className="col-md-12">
+            <Col className="col-md-6 m-auto">
               <FormGroup>
                 <Input
                   className="form-control-alternative"
@@ -87,14 +86,17 @@ function Login() {
                 />
               </FormGroup>
             </Col>
-            <Col>
-              <Button color="primary" className="col-md-12" type="submit"> Entrar </Button>
+            <Col className="m-auto col-md-6">
+              <Button color="primary" className="w-100" type="submit"> Entrar </Button>
             </Col>
           </Form>
-        </Col>
-      </div>
+        </Container>
+      </Body>
     </>
   );
 }
 
-export default Login;
+const Body = styled.div`
+  background-image: url('https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  height: 100vh;
+`;

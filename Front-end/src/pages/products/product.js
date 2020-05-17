@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Table,Container} from "reactstrap";
 
 import axios from '../../services/api';
@@ -8,29 +7,20 @@ import Nav from '../../components/navbar/nav';
 export default function Product() {
   
   useEffect(() => {
-    handleAll();
+    handleAllProducts();
   }, []);
 
-  let history = useHistory();
   const [all,setAll] = useState([]);
 
-  const handleAll = async () => {
+  const handleAllProducts = async () => {
 
-    const token = localStorage.getItem('jwt-token');
-
-      if (!token) {
-        history.push('/login');
-      }
-  
       await axios.get('/users', {
-        headers : { Authorization: `Bearer ${token}`}
       }).then((response) => {
         
         setAll(response.data)
       }).catch((error) => {
 
         console.log(error);
-        history.push('/login');
       });
   
   }
