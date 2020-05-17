@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, FormGroup, Input, Label } from "reactstrap";
 
 import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
-import axios from '../../services/api';
+import axios from '../../../services/api';
 
 export default function UpdateCategories({ getCategories, handleDelete, handleAllCategories }) {
 

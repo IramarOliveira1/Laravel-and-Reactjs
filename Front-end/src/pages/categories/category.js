@@ -7,7 +7,7 @@ import { Button, Modal, Container, Table, Form, Input, FormGroup, Label } from "
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
 
-import ListCategory from './updateCategory';
+import ListCategory from './components/updateCategory';
 
 export default function Categories() {
 
