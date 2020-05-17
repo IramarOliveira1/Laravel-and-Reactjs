@@ -15,8 +15,15 @@ use Illuminate\Http\Request;
 
 Route::post('auth/login', 'Api\\AuthController@login');
 
+Route::post('/store', 'Api\\UserController@store');
+
 Route::group(['middleware' => ['apiJwt']],function () {
     Route::post('auth/logout', 'Api\\AuthController@logout');
 
     Route::get('/users', 'Api\\UserController@index'); 
+
+    Route::get('/category', 'Api\\CategoryController@index');
+    
+    Route::post('/store/category', 'Api\\CategoryController@store');
+
 });
