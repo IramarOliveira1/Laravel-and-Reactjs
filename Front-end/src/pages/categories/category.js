@@ -134,7 +134,7 @@ export default function Categories() {
           className="mb-3"
           onClick={() => setModal(true)}
         >
-          New Category
+          Nova Categoria
         </Button>
         <Modal
           className="modal-dialog"

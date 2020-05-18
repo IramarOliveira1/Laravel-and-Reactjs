@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table,Container} from "reactstrap";
-
+import { Button} from "reactstrap";
+import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
 import axios from '../../services/api';
 import Nav from '../../components/navbar/nav';
 
@@ -14,7 +15,7 @@ export default function Product() {
 
   const handleAllProducts = async () => {
 
-      await axios.get('/users', {
+      await axios.get('/produtos', {
       }).then((response) => {
         
         setAll(response.data)
@@ -27,11 +28,17 @@ export default function Product() {
   
   const handleMapAll = all.map((getAll) => {
     return(
-        <tr key={getAll.id}>
-          <td>{getAll.id}</td>
-          <td>{getAll.name}</td>
-          <td>{getAll.email}</td>
-        </tr>
+      <tr key={getAll.id}>
+        <td>{getAll.id}</td>
+        <td>{getAll.name}</td>
+        <td>{getAll.quantidade}</td>
+        <td>{getAll.preco}</td>
+        <td>{getAll.categoria.name}</td>
+        <td>
+          <Button color="danger"> <AiFillDelete /> </Button>
+          <Button color="info" > <AiTwotoneEdit /> </Button>
+        </td>
+      </tr>
     )
   });
   
@@ -45,7 +52,10 @@ export default function Product() {
             <tr>
               <th scope="col">id</th>
               <th scope="col">Nome</th>
-              <th scope="col">Email</th>
+              <th scope="col">Quantidade</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
