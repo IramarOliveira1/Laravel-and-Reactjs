@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { Button, Modal, Form, FormGroup, Input, Label } from "reactstrap";
 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content';
+
 import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
 import axios from '../../../services/api';
 
 export default function UpdateCategories({ getCategories, handleDelete, handleAllCategories }) {
 
+    const MySwal = withReactContent(Swal)
     const [name, setName] = useState('');
     const [modal, setModal] = useState(false);
 
@@ -17,12 +21,42 @@ export default function UpdateCategories({ getCategories, handleDelete, handleAl
 
     const handleUpdate = async () => {
 
+        if (!name) {
+            MySwal.fire({
+                icon: 'info',
+                title: 'Preencha os campos vazios!',
+            })
+            return name;
+        }
+
         await axios.put(`/update/category/${getCategories.id}`, {
             name: name
+        }).then(() => {
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Atualizado com sucesso :)'
+            })
+
+            setModal(false);
+            handleAllCategories();
+        }).catch((err) => {
+            console.log(err);
         })
 
-        setModal(false);
-        handleAllCategories();
+
     }
 
     return (
