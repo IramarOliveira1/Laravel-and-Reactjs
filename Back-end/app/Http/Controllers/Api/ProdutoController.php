@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Category;
+use App\Produto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class ProdutoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,15 @@ class CategoryController extends Controller
     public function index()
     {
         $id_user = Auth::user();
-        $allCategory = Category::where('id_user', $id_user->id)->get();
+        
+        $produtos = Produto::where('id_user', $id_user->id)->get();
 
-        return response()->json($allCategory, 200);
+        foreach ($produtos as $produto) {
+           $produto->categoria;
+        }
+        
+        return response()->json($produtos, 200);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -31,20 +35,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $idUser = Auth::user();
-        if (!$request->name) {
-            return response()->json([
-                'error' => true,
-                'messege' => 'Preencha todos os campos!'
-            ],401);
-        }
-        
-        $storeCategory = Category::create([
-            'name' => $request->name,
-            'id_user' => $idUser->id
-        ]);
-
-        return response()->json($storeCategory, 200);
+        //
     }
 
     /**
@@ -56,10 +47,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateCategory = Category::find($id);
-        $updateCategory->update($request->all());
-
-        return response()->json($updateCategory, 200);
+        //
     }
 
     /**
@@ -70,8 +58,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $destroyCategory = Category::destroy($id);
-
-        return response()->json($destroyCategory, 200);
+        //
     }
 }
