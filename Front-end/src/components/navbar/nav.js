@@ -6,6 +6,7 @@ import { UncontrolledCollapse, Navbar, NavItem, NavLink, Nav, Container, Row, Co
 import axios from '../../services/api';
 import '../../assets/css/style.css';
 import logoSotero from '../../assets/images/logo-sotero.png';
+import logoNav from '../../assets/images/sotero-nav.png';
 
 export default function NavBar() {
 
@@ -55,7 +56,7 @@ export default function NavBar() {
                   <Link to="/">
                     <img
                       alt="..."
-                    // src="http://hostserveres.com/uploads/settings/15671091409758.png"
+                    src={logoNav}
                     />
                   </Link>
                 </Col>
