@@ -85,8 +85,7 @@ export default function Categories() {
       cancelButtonText: 'Não, quero cancelar!'
     }).then((result) => {
       if (result.value) {
-        axios.delete(`/delete/category/${id}`).then((response) => {
-          console.log(response);
+        axios.delete(`/delete/category/${id}`).then(() => {
 
           const Toast = Swal.mixin({
             toast: true,
@@ -106,6 +105,11 @@ export default function Categories() {
           handleAllCategories();
         }).catch((err) => {
           console.log(err);
+          MySwal.fire({
+            icon: 'warning',
+            title: "Atenção",
+            text: 'Categoria não pode ser deletada porque está sendo usada no produto!',
+          })
 
         });
       }
