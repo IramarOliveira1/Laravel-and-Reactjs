@@ -101,7 +101,7 @@ export default function Categories() {
           })
           Toast.fire({
             icon: 'success',
-            title: 'Excluido com sucesso :)'
+            title: 'Categoria excluida com sucesso :)'
           })
           handleAllCategories();
         }).catch((err) => {

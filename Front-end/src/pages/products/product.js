@@ -6,7 +6,6 @@ import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
 import axios from '../../services/api';
 import Nav from '../../components/navbar/nav';
 
-
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
 
@@ -92,7 +91,47 @@ export default function Product() {
       console.log(err);
 
     });
+  }
 
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: 'Atenção',
+      text: "Este registro será definitivamente excluído. Deseja continuar?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#449D44',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, deletar item!',
+      cancelButtonText: 'Não, quero cancelar!'
+    }).then((result) => {
+      if (result.value) {
+        axios.delete(`/delete/produtos/${id}`).then((response) => {
+          console.log(response);
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Produto excluido com sucesso :)'
+          })
+
+          handleAllProducts();
+          handleAllCategories();
+        }).catch((err) => {
+          console.log(err);
+
+        });
+      }
+    });
   }
 
   const handleMapCategories = categories.map((getAllCategories) => {
@@ -112,7 +151,7 @@ export default function Product() {
         <td>{getAll.preco}</td>
         <td>{getAll.categoria.name}</td>
         <td>
-          <Button color="danger"> <AiFillDelete /> </Button>
+          <Button color="danger" onClick={() => handleDelete(getAll.id)} > <AiFillDelete /> </Button>
           <Button color="info" > <AiTwotoneEdit /> </Button>
         </td>
       </tr>
@@ -173,7 +212,7 @@ export default function Product() {
               </FormGroup>
               <Label>Preço</Label>
               <FormGroup>
-              <Input
+                <Input
                   className="form-control"
                   id="preco"
                   type="text"
