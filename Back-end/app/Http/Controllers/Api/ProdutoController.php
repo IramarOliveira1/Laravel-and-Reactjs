@@ -65,6 +65,8 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroyProducts = Produto::destroy($id);
+
+        return response()->json($destroyProducts, 200);
     }
 }

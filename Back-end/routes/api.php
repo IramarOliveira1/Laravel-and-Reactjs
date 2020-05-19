@@ -24,6 +24,8 @@ Route::group(['middleware' => ['apiJwt']],function () {
     
     Route::post('/store/produtos', 'Api\\ProdutoController@store'); 
 
+    Route::delete('/delete/produtos/{id}', 'Api\\ProdutoController@destroy');
+
     Route::get('/category', 'Api\\CategoryController@index');
     
     Route::post('/store/category', 'Api\\CategoryController@store');
