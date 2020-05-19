@@ -22,15 +22,15 @@ class apiProtectedRoute extends BaseMiddleware
         } catch (\Exception $e) {  
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 return response()->json([
-                    'messege' => 'Token is Invalid'
+                    'message' => 'Token is Invalid'
                 ],401 );
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
                 return response()->json([
-                    'messege' => 'Token is Expired'
+                    'message' => 'Token is Expired'
                 ],401);
             }else {
                 return response()->json([
-                    'messege' => 'Authorization Token not found'
+                    'message' => 'Authorization Token not found'
                 ],404);
             }
         }

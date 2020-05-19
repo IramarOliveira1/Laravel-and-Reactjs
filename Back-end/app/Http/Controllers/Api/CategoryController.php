@@ -70,8 +70,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $destroyCategory = Category::destroy($id);
-
-        return response()->json($destroyCategory, 200);
+        try {
+            $destroyCategory = Category::destroy($id);
+            return response()->json($destroyCategory, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th, 400);
+        }
+       
     }
 }

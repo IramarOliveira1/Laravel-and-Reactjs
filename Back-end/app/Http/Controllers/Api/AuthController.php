@@ -13,7 +13,7 @@ class AuthController extends Controller
         $credentials = $request->only(['email', 'password']);
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json([
-                'messege' => 'Credencias Invalidas!',
+                'message' => 'Credencias Invalidas!',
                 'error' => true
             ],200);
         }
@@ -34,7 +34,7 @@ class AuthController extends Controller
     {
         auth('api')->logout();
         return response()->json([
-            'messege' => 'Successfully logged out'
+            'message' => 'Successfully logged out'
         ],200);
     }
 

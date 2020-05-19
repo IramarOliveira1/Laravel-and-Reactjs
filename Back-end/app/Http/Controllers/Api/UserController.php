@@ -34,7 +34,7 @@ class UserController extends Controller
             $email = User::whereRaw('email = ?',[$request->email])->first();
     
             if (isset($email['email'])) {
-                return response()->json(['messege' => 'Email Já existe na base de dados', 'error' => true],200);
+                return response()->json(['message' => 'Email Já existe na base de dados', 'error' => true],200);
             }
     
             $save = User::create(
@@ -48,7 +48,7 @@ class UserController extends Controller
             return response()->json($save,200);
     
         } catch (\Exception  $e) {
-            return response()->json(['messege' => 'Engraçadinho não fique removendo os requireds dos campos pelo console do navegador!', 'error' => true],200);
+            return response()->json(['message' => 'Engraçadinho não fique removendo os requireds dos campos pelo console do navegador!', 'error' => true],200);
         }
       
     }
