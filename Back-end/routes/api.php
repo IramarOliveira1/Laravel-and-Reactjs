@@ -20,7 +20,9 @@ Route::post('/store', 'Api\\UserController@store');
 Route::group(['middleware' => ['apiJwt']],function () {
     Route::post('auth/logout', 'Api\\AuthController@logout');
 
-    Route::get('/produtos', 'Api\\ProdutoController@index'); 
+    Route::get('/produtos', 'Api\\ProdutoController@index');
+    
+    Route::post('/store/produtos', 'Api\\ProdutoController@store'); 
 
     Route::get('/category', 'Api\\CategoryController@index');
     

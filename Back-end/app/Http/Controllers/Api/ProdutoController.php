@@ -17,14 +17,12 @@ class ProdutoController extends Controller
     public function index()
     {
         $id_user = Auth::user();
-        
-        $produtos = Produto::where('id_user', $id_user->id)->get();
-
-        foreach ($produtos as $produto) {
-           $produto->categoria;
+        $products = Produto::where('id_user', $id_user->id)->get();
+        foreach ($products as $product) {
+           $product->categoria;
         }
         
-        return response()->json($produtos, 200);
+        return response()->json($products, 200);
     }
 
     /**
@@ -34,8 +32,17 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $id_user = Auth::user();
+        $storeProducts = Produto::create([
+            'name' => $request->name,
+            'quantidade' => $request->quantidade,
+            'preco' => $request->preco,
+            'id_categoria' => $request->categoriesId,
+            'id_user' => $id_user->id
+        ]);
+       
+        return response()->json($storeProducts, 200);
     }
 
     /**
