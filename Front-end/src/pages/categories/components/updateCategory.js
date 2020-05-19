@@ -47,7 +47,7 @@ export default function UpdateCategories({ getCategories, handleDelete, handleAl
 
             Toast.fire({
                 icon: 'success',
-                title: 'Atualizado com sucesso :)'
+                title: 'Categoria atualizada com sucesso :)'
             })
 
             setModal(false);

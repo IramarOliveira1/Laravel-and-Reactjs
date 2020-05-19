@@ -49,7 +49,7 @@ export default function Login() {
       })
     } else {
       console.log(response.data);
-      
+
       localStorage.setItem('jwt-token', response.data.access_token);
       history.push('/home');
     }

@@ -43,7 +43,7 @@ export default function Categories() {
 
     await axios.post('/store/category', {
       name: name,
-    }).then((response) => {
+    }).then(() => {
 
       const Toast = Swal.mixin({
         toast: true,
@@ -62,7 +62,6 @@ export default function Categories() {
         title: 'Cadastrado com sucesso :)'
       })
       setModal(false);
-      setCategories([...categories, response.data]);
       setName('');
       handleAllCategories();
 
@@ -106,7 +105,7 @@ export default function Categories() {
         }).catch((err) => {
           console.log(err);
           MySwal.fire({
-            icon: 'warning',
+            icon: 'info',
             title: "Atenção",
             text: 'Categoria não pode ser deletada porque está sendo usada no produto!',
           })
@@ -186,7 +185,6 @@ export default function Categories() {
             </Button>
           </div>
         </Modal>
-
         <Table className="align-items-center mt-2" hover responsive>
           <thead className="thead-dark">
             <tr>

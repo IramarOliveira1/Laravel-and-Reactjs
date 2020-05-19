@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import { Button, Modal, Container, Table, Form, Input, FormGroup, Label } from "reactstrap";
-import { AiFillDelete, AiTwotoneEdit } from 'react-icons/ai';
 
 import axios from '../../services/api';
 import Nav from '../../components/navbar/nav';
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
+
+import ListProducts from './components/updateProducts';
 
 export default function Product() {
 
@@ -29,10 +30,9 @@ export default function Product() {
 
     await axios.get('/produtos', {
     }).then((response) => {
-
+      
       setProducts(response.data)
     }).catch((error) => {
-
       console.log(error);
     });
   }
@@ -50,7 +50,8 @@ export default function Product() {
     if (!name || !quantidade || !preco || !categoriesId) {
       MySwal.fire({
         icon: 'info',
-        title: 'Preencha os campos vazios!',
+        title: "Atenção",
+        text: 'Preencha os campos vazios!',
       })
       return name;
     }
@@ -105,8 +106,7 @@ export default function Product() {
       cancelButtonText: 'Não, quero cancelar!'
     }).then((result) => {
       if (result.value) {
-        axios.delete(`/delete/produtos/${id}`).then((response) => {
-          console.log(response);
+        axios.delete(`/delete/produtos/${id}`).then(() => {
 
           const Toast = Swal.mixin({
             toast: true,
@@ -142,19 +142,16 @@ export default function Product() {
     );
   });
 
-  const handleMapAll = products.map((getAll) => {
+  const handleMapAll = products.map((getProducts) => {
     return (
-      <tr key={getAll.id}>
-        <td>{getAll.id}</td>
-        <td>{getAll.name}</td>
-        <td>{getAll.quantidade}</td>
-        <td>{getAll.preco}</td>
-        <td>{getAll.categoria.name}</td>
-        <td>
-          <Button color="danger" onClick={() => handleDelete(getAll.id)} > <AiFillDelete /> </Button>
-          <Button color="info" > <AiTwotoneEdit /> </Button>
-        </td>
-      </tr>
+      <ListProducts
+        getProducts={getProducts}
+        key={getProducts.id}
+        handleDelete={handleDelete}
+        handleAllProducts={handleAllProducts}
+        handleMapCategories={handleMapCategories}
+        handleAllCategories={handleAllCategories}
+      />
     )
   });
 
