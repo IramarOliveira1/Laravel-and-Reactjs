@@ -18,7 +18,6 @@ class CategoryController extends Controller
     {
         $id_user = Auth::user();
         $allCategory = Category::where('id_user', $id_user->id)->get();
-
         return response()->json($allCategory, 200);
     }
 
@@ -32,13 +31,6 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $idUser = Auth::user();
-        if (!$request->name) {
-            return response()->json([
-                'error' => true,
-                'messege' => 'Preencha todos os campos!'
-            ],401);
-        }
-        
         $storeCategory = Category::create([
             'name' => $request->name,
             'id_user' => $idUser->id
@@ -58,7 +50,6 @@ class CategoryController extends Controller
     {
         $updateCategory = Category::find($id);
         $updateCategory->update($request->all());
-
         return response()->json($updateCategory, 200);
     }
 

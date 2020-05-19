@@ -54,7 +54,9 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updateProducts = Produto::find($id);
+        $updateProducts->update($request->all());
+        return response()->json($updateProducts, 200);
     }
 
     /**
