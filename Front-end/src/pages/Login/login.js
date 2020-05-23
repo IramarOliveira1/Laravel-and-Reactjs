@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, FormGroup, Form, Input, Col, Button } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2'
@@ -15,11 +15,11 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassWord] = useState(123456789);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem("jwt-token")) {
-  //     history.push("/login");
-  //   }
-  // }, [history]);
+  useEffect(() => {
+    if (localStorage.getItem("jwt-token")) {
+      history.push("/home");
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,11 +45,9 @@ export default function Login() {
       MySwal.fire({
         icon: 'error',
         title: "Ocorreu um erro :(",
-        text: response.data.messege,
+        text: response.data.message,
       })
     } else {
-      console.log(response.data);
-
       localStorage.setItem('jwt-token', response.data.access_token);
       history.push('/home');
     }
