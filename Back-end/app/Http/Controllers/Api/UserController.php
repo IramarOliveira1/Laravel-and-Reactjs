@@ -29,7 +29,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            $criptografia =  Hash::make($request->password);
+            $cryptography =  Hash::make($request->password);
 
             $email = User::whereRaw('email = ?',[$request->email])->first();
     
@@ -41,7 +41,7 @@ class UserController extends Controller
                 [
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => $criptografia
+                    'password' => $cryptography
                 ]
             );
 
